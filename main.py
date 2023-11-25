@@ -35,15 +35,29 @@ class Record:
         if phone_obj in self.phones:
             self.phones.remove(phone_obj)
 
-    def edit_phone(self, old_phone, new_phone):
-        old_phone_obj = Phone(old_phone)
-        new_phone_obj = Phone(new_phone)
+    # def edit_phone(self, old_phone, new_phone):
+    #     old_phone_obj = Phone(old_phone)
+    #     new_phone_obj = Phone(new_phone)
 
-        if old_phone_obj not in self.phones:
+    #     if old_phone_obj in self.phones:
+    #         self.remove_phone(old_phone)
+    #         self.add_phone(new_phone)
+    #     else:
+    #         raise ValueError("Phone number does not exist")
+    def edit_phone(self, old_phone, new_phone):
+        old_phone_found = False
+    
+        for i, phone_obj in enumerate(self.phones):
+            if phone_obj.value == old_phone:
+                old_phone_found = True
+                self.phones[i] = Phone(new_phone)  # Замінюємо старий номер новим
+                break
+            
+        if not old_phone_found:
             raise ValueError("Phone number does not exist")
 
-        self.remove_phone(old_phone)
-        self.add_phone(new_phone)
+        # self.remove_phone(old_phone)
+        # self.add_phone(new_phone)
 
     def find_phone(self, phone):
         phone_obj = Phone(phone)
